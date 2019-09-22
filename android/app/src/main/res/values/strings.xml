@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">puppyPotty</string>
+    <string name="title_activity_main">puppyPotty</string>
+    <string name="package_name">com.puppyPotty.app</string>
+    <string name="fileprovider_authority">com.puppyPotty.app.fileprovider</string>
+    <string name="custom_url_scheme">com.puppyPotty.app</string>
+</resources>

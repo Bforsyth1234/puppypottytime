@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>
+      Potty break in:
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-badge color="danger">
+        <countdown [config]="{ leftTime: time }"></countdown>
+    </ion-badge>
+  </ion-card-content>
+</ion-card>
