@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Plugins } from '@capacitor/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimerService {
-  timeToPotty: string;
+  timeToPotty;
   storage = Plugins.Storage;
   localNotifications = Plugins.LocalNotifications;
+  subject = new Subject<number>();
+
 
   constructor() {
   }
 
-  async add(timeToAdd: number) {
+  add(timeToAdd: number) {
     this.timeToPotty = moment().add(timeToAdd.toString(), 'minutes').toString();
+    this.subject.next(this.timeToPotty);
     this.setNotification(timeToAdd);
-    await this.storage.set({
+    return this.storage.set({
       key: 'time',
       value: this.timeToPotty
     });
