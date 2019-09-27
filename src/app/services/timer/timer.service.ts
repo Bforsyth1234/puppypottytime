@@ -7,17 +7,40 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TimerService {
-  timeToPotty;
-  storage = Plugins.Storage;
+  timeToPotty: string;
+  private storage = Plugins.Storage;
   localNotifications = Plugins.LocalNotifications;
-  subject = new Subject<number>();
+  subject = new Subject<string>();
+  accidentSubject = new Subject<string>();
+  lastAccident;
 
 
   constructor() {
   }
 
+  addAccident() {
+    this.lastAccident =  new Date(Date.now());
+    this.accidentSubject.next(this.lastAccident.value);
+    console.log('this.lastAccident = ');
+    console.log(this.lastAccident);
+    this.storage.set({
+      key: 'accidentDate',
+      value: this.lastAccident
+    });
+  }
+
+  async getLastAccident() {
+    const data = await this.storage.get({ key: 'accidentDate' });
+    console.log('data getLastAccident = ');
+    console.log(data);
+    return data.value;
+  }
+
   add(timeToAdd: number) {
     this.timeToPotty = moment().add(timeToAdd.toString(), 'minutes').toString();
+    console.log('ran 1');
+    console.log('this.timeToPotty = ');
+    console.log(this.timeToPotty);
     this.subject.next(this.timeToPotty);
     this.setNotification(timeToAdd);
     return this.storage.set({
@@ -27,8 +50,6 @@ export class TimerService {
   }
 
   setNotification(timeToAdd: number) {
-    console.log('timeToAdd = ');
-    console.log(timeToAdd);
     this.localNotifications.schedule({
       notifications: [
         {

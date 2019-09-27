@@ -21,7 +21,12 @@ export class AddRecordComponent implements OnInit {
   }
 
   accident() {
+    this.addAccident();
     this.addHourToTimer();
+  }
+
+  addAccident() {
+    this.timerService.addAccident();
   }
 
   success() {

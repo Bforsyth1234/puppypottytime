@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class TimerComponent implements OnInit {
   time = 1;
-  timerSub: Subject<number>;
+  timerSub: Subject<string>;
 
   constructor(
      private timerService: TimerService
@@ -20,6 +20,8 @@ export class TimerComponent implements OnInit {
     this.getInitTime();
     this.timerSub = this.timerService.subject;
     this.timerSub.subscribe(data => {
+      console.log('data = ');
+      console.log(data);
       this.setTime(data);
     });
   }
