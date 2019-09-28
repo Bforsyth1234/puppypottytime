@@ -7,7 +7,12 @@
   </ion-header>
   
 <ion-content>
-  <app-accident-data></app-accident-data>
-  <app-timer></app-timer>
-  <app-add-record></app-add-record>
+  <app-accident-data [daysSinceLastAccident]=(daysSinceLastAccident)></app-accident-data>
+  <app-timer
+  [time]=(time)
+  ></app-timer>
+  <app-add-record
+  (addAccident)="onAddAccident()"
+  (addSuccess)="onAddSuccess()"
+  ></app-add-record>
 </ion-content>

@@ -29,7 +29,7 @@ export class TimerService {
     });
   }
 
-  async getLastAccident() {
+  async getLastAccident(): Promise<string>   {
     const data = await this.storage.get({ key: 'accidentDate' });
     console.log('data getLastAccident = ');
     console.log(data);

@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { TimerService } from '../../services/timer/timer.service';
-import { from } from 'rxjs';
-
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-add-record',
@@ -9,35 +6,19 @@ import { from } from 'rxjs';
   styleUrls: ['./add-record.component.scss'],
 })
 export class AddRecordComponent implements OnInit {
+  @Output() addAccident = new EventEmitter();
+  @Output() addSuccess = new EventEmitter();
 
-  constructor(
-    private timerService: TimerService,
-  ) { }
+  constructor() { }
 
   ngOnInit() {}
 
-  addRecord(type: string) {
-    type === 'accident' ? this.accident() : this.success();
-  }
-
   accident() {
-    this.addAccident();
-    this.addHourToTimer();
-  }
-
-  addAccident() {
-    this.timerService.addAccident();
+    this.addAccident.emit();
   }
 
   success() {
-    this.addHourToTimer();
-  }
-
-  addHourToTimer() {
-    from(this.timerService.add(60)).subscribe(data => {
-      console.log('data = ');
-      console.log(data);
-    });
+    this.addSuccess.emit();
   }
 
 }

@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { TimerService } from '../../services/timer/timer.service';
-import * as moment from 'moment';
-import { Subject } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
 
 
 @Component({
@@ -10,26 +7,12 @@ import { Subject } from 'rxjs';
   styleUrls: ['./accident-data.component.scss'],
 })
 export class AccidentDataComponent implements OnInit {
-
-  daysSinceLastAccident;
-  accidentSub: Subject<string>;
+  @Input() daysSinceLastAccident: number;
 
   constructor(
-    private timerService: TimerService,
   ) { }
 
   ngOnInit() {
-    this.getLastAccident();
-  }
-
-  getLastAccident() {
-    this.timerService.getLastAccident().then(data => {
-      this.calculateLastAccident(data);
-    });
-  }
-
-  calculateLastAccident(lastAccidentDate: string) {
-    this.daysSinceLastAccident = moment().diff(lastAccidentDate, 'seconds');
   }
 
 }
