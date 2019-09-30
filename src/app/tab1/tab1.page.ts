@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TimerService } from '../services/timer/timer.service';
 import * as moment from 'moment';
-import { from, Subject } from 'rxjs';
+import { from } from 'rxjs';
 
 
 @Component({
@@ -12,15 +12,12 @@ import { from, Subject } from 'rxjs';
 export class Tab1Page {
   public time = 1;
   public daysSinceLastAccident: number;
-  timerSub: Subject<string>;
-  
-
-
+  interval;
   constructor(
     private timerService: TimerService
   ) {
     this.getLastAccident();
-    this.initTime();
+    this.getInitTime();
   }
 
   getLastAccident() {
@@ -44,35 +41,26 @@ export class Tab1Page {
   }
 
   addHourToTimer() {
-    from(this.timerService.add(60)).subscribe(data => {
-      console.log('data = ');
-      console.log(data);
-    });
-  }
-
-  initTime() {
+    this.timerService.add(60);
     this.getInitTime();
-    this.timerSub = this.timerService.subject;
-    this.timerSub.subscribe(data => {
-      console.log('data = ');
-      console.log(data);
-      this.setTime(data);
-    });
   }
 
   getInitTime() {
     from(this.timerService.getTime()).subscribe(data => {
-      console.log('data = ');
-      console.log(data);
       this.setTime(data);
     });
   }
 
   setTime(timeData: string) {
+    this.time = 0;
     const timeLeft = moment().diff(timeData, 'seconds');
-    console.log('timeLeft = ');
-    console.log(timeLeft);
     this.time = (timeLeft * -1);
+    setTimeout(() => {
+      if (this.time > 0) {
+        this.time--;
+        this.time.toLocaleString();
+      }
+    }, 1000);
   }
 
 }
