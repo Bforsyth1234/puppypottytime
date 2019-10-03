@@ -1,18 +1,18 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        Puppy Potty
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
+  <ion-toolbar>
+    <ion-title>
+      Puppy Potty Time
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <app-accident-data [daysSinceLastAccident]=(daysSinceLastAccident)></app-accident-data>
-  <app-timer
-  [time]=(time)
-  ></app-timer>
+  <app-accident-data
+    [daysSinceLastAccident]="daysSinceLastAccident"
+  ></app-accident-data>
+  <app-timer [time]="time"></app-timer>
   <app-add-record
-  (addAccident)="onAddAccident()"
-  (addSuccess)="onAddSuccess()"
+    (addAccident)="onAddAccident()"
+    (addSuccess)="onAddSuccess()"
   ></app-add-record>
 </ion-content>
