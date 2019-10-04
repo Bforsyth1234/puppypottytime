@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ScheduleService } from '../../services/schedule/schedule.service';
+import { Schedule } from '../../models/schedule/schedule';
 
 @Component({
   selector: 'app-schedule',
@@ -7,9 +9,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./schedule.component.scss'],
 })
 export class ScheduleComponent implements OnInit {
+  @Output() scheduleSubmit: EventEmitter<Schedule> = new EventEmitter();
+  @Input() scheduleData: Schedule;
   scheduleForm: FormGroup;
 
-  constructor() {
+  constructor(
+    public scheduleService: ScheduleService,
+  ) {
     this.scheduleForm = new FormGroup({
       wakeUp: new FormControl('', Validators.required),
       breakfast: new FormControl('', Validators.required),
@@ -19,11 +25,16 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.scheduleForm.setValue(this.scheduleData);
+  }
 
   onSubmit() {
     console.log('this.scheduleForm = ');
-    console.log(this.scheduleForm);
+    console.log(this.scheduleForm.value);
+    this.scheduleSubmit.emit(this.scheduleForm.value);
   }
+
+
 
 }
