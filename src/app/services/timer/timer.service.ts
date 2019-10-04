@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Plugins } from '@capacitor/core';
+import { Plugins, LocalNotificationPendingList } from '@capacitor/core';
+import { from, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,13 @@ export class TimerService {
   timeToPotty: string;
   private storage = Plugins.Storage;
   localNotifications = Plugins.LocalNotifications;
-  lastAccident;
-
+  lastAccident: string;
 
   constructor() {
   }
 
   addAccident() {
-    this.lastAccident =  new Date(Date.now());
+    this.lastAccident =  new Date(Date.now()).toString();
     this.storage.set({
       key: 'accidentDate',
       value: this.lastAccident
@@ -25,8 +25,6 @@ export class TimerService {
 
   async getLastAccident(): Promise<string>   {
     const data = await this.storage.get({ key: 'accidentDate' });
-    console.log('data getLastAccident = ');
-    console.log(data);
     return data.value;
   }
 
@@ -42,6 +40,19 @@ export class TimerService {
   }
 
   setNotification(timeToAdd: number) {
+    from(this.localNotifications.getPending()).subscribe(pendingNotifications => {
+      pendingNotifications.notifications.length > 0 ?
+        this.removeNotification(timeToAdd, pendingNotifications) : this.setNewNotification(timeToAdd);
+    });
+  }
+
+  removeNotification(timeToAdd: number, pendingNotifications: LocalNotificationPendingList) {
+    from(this.localNotifications.cancel(pendingNotifications)).subscribe(() => {
+      this.setNewNotification(timeToAdd);
+    });
+  }
+
+  setNewNotification(timeToAdd: number) {
     this.localNotifications.schedule({
       notifications: [
         {

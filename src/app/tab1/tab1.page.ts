@@ -12,7 +12,8 @@ import { from } from 'rxjs';
 export class Tab1Page {
   public time = 1;
   public daysSinceLastAccident: number;
-  interval;
+
+
   constructor(
     private timerService: TimerService
   ) {
