@@ -15,18 +15,12 @@ export class Tab2Page {
 
   ionViewWillEnter() {
     this.scheduleService.getSchedule().then(data => {
-      console.log('data = ');
-      console.log(data);
-      if (data) {
-        this.scheduleData = data;
-      }
+      this.scheduleData = data ? data : null;
     });
   }
 
 
   scheduleSubmit(schedule) {
-    console.log('scheduleSubmit schedule = ');
-    console.log(schedule);
     this.scheduleService.saveSchedule(schedule);
   }
 }

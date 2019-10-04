@@ -26,12 +26,12 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.scheduleForm.setValue(this.scheduleData);
+    if (this.scheduleData) {
+      this.scheduleForm.setValue(this.scheduleData);
+    }
   }
 
   onSubmit() {
-    console.log('this.scheduleForm = ');
-    console.log(this.scheduleForm.value);
     this.scheduleSubmit.emit(this.scheduleForm.value);
   }
 

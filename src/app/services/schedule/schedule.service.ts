@@ -11,8 +11,6 @@ export class ScheduleService {
   constructor() { }
 
   saveSchedule(schedule: Schedule) {
-    console.log('schedule = ');
-    console.log(schedule);
     this.storage.set({
       key: 'schedule',
       value: JSON.stringify(schedule),
