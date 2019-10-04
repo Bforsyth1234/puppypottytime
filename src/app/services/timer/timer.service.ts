@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Plugins, LocalNotificationPendingList } from '@capacitor/core';
-import { from, Subscription } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,9 @@ export class TimerService {
   localNotifications = Plugins.LocalNotifications;
   lastAccident: string;
 
-  constructor() {
+  constructor(
+    public notificationService: NotificationService
+  ) {
   }
 
   addAccident() {
@@ -30,43 +32,13 @@ export class TimerService {
 
   add(timeToAdd: number) {
     this.timeToPotty = moment().add(timeToAdd.toString(), 'minutes').toString();
-    this.setNotification(timeToAdd);
+    this.notificationService.setNotification(timeToAdd);
     this.storage.set({
       key: 'time',
       value: this.timeToPotty
     })
     .then(() => console.log(this.timeToPotty))
     .catch(err => console.log(err));
-  }
-
-  setNotification(timeToAdd: number) {
-    from(this.localNotifications.getPending()).subscribe(pendingNotifications => {
-      pendingNotifications.notifications.length > 0 ?
-        this.removeNotification(timeToAdd, pendingNotifications) : this.setNewNotification(timeToAdd);
-    });
-  }
-
-  removeNotification(timeToAdd: number, pendingNotifications: LocalNotificationPendingList) {
-    from(this.localNotifications.cancel(pendingNotifications)).subscribe(() => {
-      this.setNewNotification(timeToAdd);
-    });
-  }
-
-  setNewNotification(timeToAdd: number) {
-    this.localNotifications.schedule({
-      notifications: [
-        {
-          title: 'Puppy Potty Time',
-          body: 'Body',
-          id: 1,
-          schedule: { at: new Date(Date.now() + 1000 * timeToAdd) },
-          sound: null,
-          attachments: null,
-          actionTypeId: '',
-          extra: null
-        }
-      ]
-    });
   }
 
   getTime() {
