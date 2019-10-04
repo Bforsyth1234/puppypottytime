@@ -7,13 +7,12 @@ import { NotificationService } from '../notification/notification.service';
   providedIn: 'root'
 })
 export class TimerService {
-  timeToPotty: string;
+  private timeToPotty: string;
+  private lastAccident: string;
   private storage = Plugins.Storage;
-  localNotifications = Plugins.LocalNotifications;
-  lastAccident: string;
 
   constructor(
-    public notificationService: NotificationService
+    public notificationService: NotificationService,
   ) {
   }
 
