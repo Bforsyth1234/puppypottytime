@@ -1,12 +1,38 @@
 <ion-card>
     <ion-card-header>
       <ion-card-subtitle>
-        Record puppy events:
+        Record Puppy Potty Events:
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-        <ion-button expand="block" size="large" color="success" (click)="success()">Success</ion-button>
-        <ion-button expand="block" size="large" color="warning" (click)="accident()">Accident</ion-button>
+      <ion-button expand="block" size="large" color="success" (click)="success()">Success
+          <ion-icon src="../../../assets/hydrant.svg"></ion-icon>
+      </ion-button>
+      <br />
+      <ion-button expand="block" size="large" color="warning" (click)="accident()">Accident
+          <ion-icon src="../../../assets/poop.svg"></ion-icon>
+      </ion-button>
+      <br/>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+      <ion-card-header>
+          <ion-card-subtitle>
+           Set Timers:
+          </ion-card-subtitle>
+        </ion-card-header>
+    <ion-card-content>
+        <ion-button expand="block" size="large" color="secondary" (click)="feedingTime()">Start Feeding Time
+            <ion-icon src="../../../assets/food.svg"></ion-icon>
+        </ion-button>
+        <br />
+        <ion-button expand="block" size="large" color="primary" (click)="crateTime()">Start Crate Time
+            <ion-icon src="../../../assets/crate.svg"></ion-icon>
+        </ion-button>
+        <br />
+        <ion-button expand="block" size="large" color="tertiary" (click)="bedTime()">Start Bed Time
+            <ion-icon src="../../../assets/moon.svg"></ion-icon>
+        </ion-button>
     </ion-card-content>
   </ion-card>
   

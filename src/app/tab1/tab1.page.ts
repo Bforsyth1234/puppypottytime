@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TimerService } from '../services/timer/timer.service';
 import * as moment from 'moment';
 import { from } from 'rxjs';
+import { NotificationService } from '../services/notification/notification.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class Tab1Page {
 
 
   constructor(
-    private timerService: TimerService
+    private timerService: TimerService,
+    private notificationService: NotificationService,
   ) {
     this.getLastAccident();
     this.getInitTime();
@@ -62,6 +64,20 @@ export class Tab1Page {
         this.time.toLocaleString();
       }
     }, 1000);
+  }
+
+  onAddFeedingTimer() {
+    this.timerService.add(25);
+    this.getInitTime();
+  }
+
+  onSetCrateTime() {
+    this.timerService.add(180);
+    this.getInitTime();
+  }
+
+  onSetBedTime() {
+    this.notificationService.removeAllNotifications();
   }
 
 }
