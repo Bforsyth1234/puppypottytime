@@ -8,6 +8,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class AddRecordComponent implements OnInit {
   @Output() addAccident = new EventEmitter();
   @Output() addSuccess = new EventEmitter();
+  @Output() addFeedingTimer = new EventEmitter();
+  @Output() setCrateTime = new EventEmitter();
+  @Output() setBedTime = new EventEmitter();
 
   constructor() { }
 
@@ -19,6 +22,18 @@ export class AddRecordComponent implements OnInit {
 
   success() {
     this.addSuccess.emit();
+  }
+
+  public feedingTime() {
+    this.addFeedingTimer.emit();
+  }
+
+  public crateTime() {
+    this.setCrateTime.emit();
+  }
+
+  bedTime() {
+    this.setBedTime.emit();
   }
 
 }

@@ -25,6 +25,14 @@ export class NotificationService {
     });
   }
 
+  removeAllNotifications() {
+    from(this.localNotifications.getPending()).subscribe(pendingNotifications => {
+      this.localNotifications.cancel(pendingNotifications)
+        .then(() => console.log('canceled all notifications'))
+        .catch(err => console.log(err));
+    });
+  }
+
   setNewNotification(timeToAdd: number) {
     this.localNotifications.schedule({
       notifications: [
