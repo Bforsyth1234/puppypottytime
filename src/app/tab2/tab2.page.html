@@ -6,6 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  <app-setup></app-setup>
+<ion-content *ngIf="timerSettingsData || timerSettingsData === null" >
+  <app-setup
+  (setTimers)="setTimers($event)"
+  [timerSettingsData]="timerSettingsData"
+  ></app-setup>
 </ion-content>

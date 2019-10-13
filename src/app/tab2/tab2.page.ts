@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Schedule } from '../models/schedule/schedule';
 import { ScheduleService } from '../services/schedule/schedule.service';
+import { TimerSettings } from '../models/timer-settings/timer-settings';
+import { TimerService } from '../services/timer/timer.service';
 
 @Component({
   selector: 'app-tab2',
@@ -8,19 +10,24 @@ import { ScheduleService } from '../services/schedule/schedule.service';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  scheduleData: Schedule;
+  public timerSettingsData: TimerSettings;
   constructor(
     public scheduleService: ScheduleService,
+    public timerService: TimerService,
   ) {}
 
   ionViewWillEnter() {
-    this.scheduleService.getSchedule().then(data => {
-      this.scheduleData = data ? data : null;
+    this.timerService.getTimerSettings().then(data => {
+      console.log('data = ');
+      console.log(data);
+      this.timerSettingsData = data ? data : null;
     });
   }
 
 
-  scheduleSubmit(schedule) {
-    this.scheduleService.saveSchedule(schedule);
+  setTimers(timerSettings: TimerSettings) {
+    console.log('timerSettings = ');
+    console.log(timerSettings);
+    this.timerService.saveTimers(timerSettings);
   }
 }

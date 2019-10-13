@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Plugins } from '@capacitor/core';
 import { NotificationService } from '../notification/notification.service';
+import { TimerSettings } from '../../models/timer-settings/timer-settings';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,21 @@ export class TimerService {
     return this.storage.get({key: 'time'}).then(data => {
       return data.value;
     });
+  }
+
+  saveTimers(timers: TimerSettings) {
+    console.log('timers from saveTimers service = ');
+    console.log(timers);
+    this.storage.set({
+      key: 'timers',
+      value: JSON.stringify(timers),
+    });
+  }
+
+  async getTimerSettings() {
+    const timerSettingsString = await this.storage.get({ key: 'timers' });
+    console.log('JSON.parse(timerSettingsString.value) = ');
+    console.log(JSON.parse(timerSettingsString.value));
+    return JSON.parse(timerSettingsString.value);
   }
 }
