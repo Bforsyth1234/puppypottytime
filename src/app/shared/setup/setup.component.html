@@ -1,0 +1,56 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>
+      Set timer lengths:
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <form [formGroup]="setupForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-item>
+          <ion-label>Potty Timer</ion-label>
+          <ion-select formControlName="pottyTimer">
+            <ion-select-option [value]="10">10 Minutes</ion-select-option>
+            <ion-select-option [value]="15">15 Minutes</ion-select-option>
+            <ion-select-option [value]="30">30 Minutes</ion-select-option>
+            <ion-select-option [value]="45">45 Minutes</ion-select-option>
+            <ion-select-option [value]="60">1 Hour</ion-select-option>
+            <ion-select-option [value]="120">2 Hours</ion-select-option>
+            <ion-select-option [value]="180">3 Hours</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Feeding Timer</ion-label>
+          <ion-select formControlName="eatingTimer">
+            <ion-select-option [value]="5">5 Minutes</ion-select-option>
+            <ion-select-option [value]="10">10 Minutes</ion-select-option>
+            <ion-select-option [value]="15">15 Minutes</ion-select-option>
+            <ion-select-option [value]="30">30 Minutes</ion-select-option>
+            <ion-select-option [value]="45">45 Minutes</ion-select-option>
+            <ion-select-option [value]="60">1 Hour</ion-select-option>
+            <ion-select-option [value]="120">2 Hours</ion-select-option>
+            <ion-select-option [value]="180">3 Hours</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Crate Timer</ion-label>
+          <ion-select formControlName="crateTimer">
+            <ion-select-option [value]="5">5 Minutes</ion-select-option>
+            <ion-select-option [value]="10">10 Minutes</ion-select-option>
+            <ion-select-option [value]="15">15 Minutes</ion-select-option>
+            <ion-select-option [value]="30">30 Minutes</ion-select-option>
+            <ion-select-option [value]="45">45 Minutes</ion-select-option>
+            <ion-select-option [value]="60">1 Hour</ion-select-option>
+            <ion-select-option [value]="120">2 Hours</ion-select-option>
+            <ion-select-option [value]="180">3 Hours</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-button type="submit" [disabled]="!setupForm.valid">
+          Submit
+        </ion-button>
+      </ion-item>
+    </form>
+  </ion-card-content>
+</ion-card>
