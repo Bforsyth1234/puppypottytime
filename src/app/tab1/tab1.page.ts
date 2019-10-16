@@ -34,7 +34,6 @@ export class Tab1Page {
   }
 
   onAddAccident() {
-    this.addHourToTimer();
     this.timerService.addAccident();
     this.getLastAccident();
   }
@@ -44,7 +43,7 @@ export class Tab1Page {
   }
 
   addHourToTimer() {
-    this.timerService.add(60);
+    this.timerService.addTime('pottyTimer');
     this.getInitTime();
   }
 
@@ -67,12 +66,12 @@ export class Tab1Page {
   }
 
   onAddFeedingTimer() {
-    this.timerService.add(25);
+    this.timerService.addTime('eatingTimer');
     this.getInitTime();
   }
 
   onSetCrateTime() {
-    this.timerService.add(180);
+    this.timerService.addTime('crateTimer');
     this.getInitTime();
   }
 

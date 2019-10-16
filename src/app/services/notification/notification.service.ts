@@ -40,7 +40,7 @@ export class NotificationService {
           title: 'Puppy Potty Time',
           body: 'Body',
           id: 1,
-          schedule: { at: new Date(Date.now() + 1000 * timeToAdd) },
+          schedule: { at: new Date(Date.now() + 10000 * timeToAdd) },
           sound: null,
           attachments: null,
           actionTypeId: '',

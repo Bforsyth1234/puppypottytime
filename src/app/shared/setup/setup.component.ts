@@ -33,8 +33,6 @@ export class SetupComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this.timerSettingsData  from setupComp= ');
-    console.log(this.timerSettingsData);
     if (this.timerSettingsData && this.timerSettingsData.crateTimer) {
       this.setCustomTimers();
     } else {
@@ -43,7 +41,6 @@ export class SetupComponent implements OnInit {
   }
 
   setCustomTimers() {
-    console.log('setCustomTimers ran');
     this.setupForm.patchValue({
       pottyTimer: this.timerSettingsData.pottyTimer,
       eatingTimer: this.timerSettingsData.eatingTimer,

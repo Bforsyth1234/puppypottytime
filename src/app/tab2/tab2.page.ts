@@ -18,16 +18,12 @@ export class Tab2Page {
 
   ionViewWillEnter() {
     this.timerService.getTimerSettings().then(data => {
-      console.log('data = ');
-      console.log(data);
       this.timerSettingsData = data ? data : null;
     });
   }
 
 
   setTimers(timerSettings: TimerSettings) {
-    console.log('timerSettings = ');
-    console.log(timerSettings);
     this.timerService.saveTimers(timerSettings);
   }
 }
