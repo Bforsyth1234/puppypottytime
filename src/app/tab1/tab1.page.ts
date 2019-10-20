@@ -44,8 +44,6 @@ export class Tab1Page {
   addHourToTimer() {
     this.timerService.addTime('pottyTimer').then(data => {
       if (data) {
-        console.log('data = ');
-        console.log(data);
         this.setTime(data);
       }
     });
@@ -53,15 +51,11 @@ export class Tab1Page {
 
   getInitTime() {
     from(this.timerService.getTime()).subscribe(data => {
-      console.log('data get init time = ');
-      console.log(data);
       this.setTime(data);
     });
   }
 
   setTime(timeData: string) {
-    console.log('timeData = ');
-    console.log(timeData);
     this.time = 0;
     const timeLeft = moment().diff(timeData, 'seconds');
     this.time = (timeLeft * -1);
@@ -75,8 +69,6 @@ export class Tab1Page {
 
   onAddFeedingTimer() {
     this.timerService.addTime('eatingTimer').then(data => {
-      console.log('data = ');
-      console.log(data);
       if (data) {
         this.setTime(data);
       }
@@ -85,8 +77,6 @@ export class Tab1Page {
 
   onSetCrateTime() {
     this.timerService.addTime('crateTimer').then(data => {
-      console.log('data = ');
-      console.log(data);
       if (data) {
         this.setTime(data);
       }
