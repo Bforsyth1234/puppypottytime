@@ -6,9 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="scheduleData || scheduleData === null" >
-  <app-schedule
-    [scheduleData]="scheduleData"
-    (scheduleSubmit)="scheduleSubmit($event)"
-  ></app-schedule>
+<ion-content *ngIf="timerSettingsData || timerSettingsData === null" >
+  <app-setup
+  (setTimers)="setTimers($event)"
+  [timerSettingsData]="timerSettingsData"
+  ></app-setup>
 </ion-content>
