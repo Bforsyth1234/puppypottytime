@@ -4,7 +4,6 @@ import * as moment from 'moment';
 import { from } from 'rxjs';
 import { NotificationService } from '../services/notification/notification.service';
 
-
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -13,7 +12,6 @@ import { NotificationService } from '../services/notification/notification.servi
 export class Tab1Page {
   public time = 1;
   public daysSinceLastAccident: number;
-
 
   constructor(
     private timerService: TimerService,
@@ -36,6 +34,7 @@ export class Tab1Page {
   onAddAccident() {
     this.timerService.addAccident();
     this.getLastAccident();
+    this.addHourToTimer();
   }
 
   onAddSuccess() {
@@ -43,17 +42,26 @@ export class Tab1Page {
   }
 
   addHourToTimer() {
-    this.timerService.addTime('pottyTimer');
-    this.getInitTime();
+    this.timerService.addTime('pottyTimer').then(data => {
+      if (data) {
+        console.log('data = ');
+        console.log(data);
+        this.setTime(data);
+      }
+    });
   }
 
   getInitTime() {
     from(this.timerService.getTime()).subscribe(data => {
+      console.log('data get init time = ');
+      console.log(data);
       this.setTime(data);
     });
   }
 
   setTime(timeData: string) {
+    console.log('timeData = ');
+    console.log(timeData);
     this.time = 0;
     const timeLeft = moment().diff(timeData, 'seconds');
     this.time = (timeLeft * -1);
@@ -66,17 +74,26 @@ export class Tab1Page {
   }
 
   onAddFeedingTimer() {
-    this.timerService.addTime('eatingTimer');
-    this.getInitTime();
+    this.timerService.addTime('eatingTimer').then(data => {
+      console.log('data = ');
+      console.log(data);
+      if (data) {
+        this.setTime(data);
+      }
+    });
   }
 
   onSetCrateTime() {
-    this.timerService.addTime('crateTimer');
-    this.getInitTime();
+    this.timerService.addTime('crateTimer').then(data => {
+      console.log('data = ');
+      console.log(data);
+      if (data) {
+        this.setTime(data);
+      }
+    });
   }
 
   onSetBedTime() {
     this.notificationService.removeAllNotifications();
   }
-
 }

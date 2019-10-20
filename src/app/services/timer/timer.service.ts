@@ -8,7 +8,6 @@ import { TimerSettings } from '../../models/timer-settings/timer-settings';
   providedIn: 'root'
 })
 export class TimerService {
-  private timeToPotty: string;
   private lastAccident: string;
   private storage = Plugins.Storage;
 
@@ -22,7 +21,6 @@ export class TimerService {
       key: 'accidentDate',
       value: this.lastAccident
     }).then(() => {
-      this.addTime('pottyTimer');
     });
   }
 
@@ -31,50 +29,53 @@ export class TimerService {
     return data.value;
   }
 
-  addTime(type: string) {
-    this.getTimerSettings()
+  async addTime(type: string): Promise<string | void> {
+     return await this.getTimerSettings()
       .then(timerSettings => {
         if (type === 'pottyTimer') {
-          this.setPottyTimer(timerSettings);
+          return this.setPottyTimer(timerSettings);
         }
         if (type === 'eatingTimer') {
-          this.setEatingTimer(timerSettings);
+          return this.setEatingTimer(timerSettings);
         }
         if (type === 'crateTimer') {
-          this.setCrateTimer(timerSettings);
+          return this.setCrateTimer(timerSettings);
         }
       })
       .catch(err => console.log(err));
   }
 
-  setPottyTimer(timerSettings: TimerSettings) {
+  setPottyTimer(timerSettings: TimerSettings): string {
     this.notificationService.setNotification(timerSettings.pottyTimer);
     this.storage.set({
       key: 'time',
       value: moment().add(timerSettings.pottyTimer.toString(), 'minutes').toString(),
     })
-      .then(() => console.log(this.timeToPotty))
+      .then(() => console.log(timerSettings))
       .catch(err => console.log(err));
+    return  moment().add(timerSettings.pottyTimer.toString(), 'minutes').toString();
   }
 
-  setEatingTimer(timerSettings: TimerSettings) {
+  setEatingTimer(timerSettings: TimerSettings): string {
     this.notificationService.setNotification(timerSettings.eatingTimer);
     this.storage.set({
       key: 'time',
       value: moment().add(timerSettings.eatingTimer.toString(), 'minutes').toString(),
     })
-      .then(() => console.log(this.timeToPotty))
+      .then(() => console.log(timerSettings))
       .catch(err => console.log(err));
+    return  moment().add(timerSettings.eatingTimer.toString(), 'minutes').toString();
   }
 
-  setCrateTimer(timerSettings: TimerSettings) {
+  setCrateTimer(timerSettings: TimerSettings): string {
     this.notificationService.setNotification(timerSettings.crateTimer);
     this.storage.set({
       key: 'time',
       value: moment().add(timerSettings.crateTimer.toString(), 'minutes').toString(),
     })
-      .then(() => console.log(this.timeToPotty))
+      .then(() => console.log(timerSettings))
       .catch(err => console.log(err));
+    return  moment().add(timerSettings.crateTimer.toString(), 'minutes').toString();
   }
 
   getTime() {
@@ -90,7 +91,7 @@ export class TimerService {
     });
   }
 
-  async getTimerSettings() {
+  async getTimerSettings(): Promise<TimerSettings> {
     const timerSettingsString = await this.storage.get({ key: 'timers' });
     return JSON.parse(timerSettingsString.value);
   }
